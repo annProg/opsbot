@@ -8,6 +8,9 @@
 # Created Time: 2017-09-14 18:19:50
 ############################
 
+CWD=`cd $(dirname $0);pwd`
+cd $CWD
+
 # 请在conf.sh中定义以下变量
 GRAFANA="http://grafana.xxx.com"
 KEY="eyJrRQZkVjM3J1bjRqNGliNGhWV1IiLCJuIjoicG5nIiwiaWQiOjF9"
@@ -15,9 +18,6 @@ CLUSTER=("newtv" "cn-cibn")
 HOST=("10.1.1.1" "10.1.2.2")
 
 source ./conf.sh
-
-CWD=`cd $(dirname $0);pwd`
-cd $CWD
 
 varCluster=""
 varHost=""
