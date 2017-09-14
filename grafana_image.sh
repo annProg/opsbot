@@ -16,6 +16,9 @@ HOST=("10.1.1.1" "10.1.2.2")
 
 source ./conf.sh
 
+CWD=`cd $(dirname $0);pwd`
+cd $CWD
+
 varCluster=""
 varHost=""
 for id in ${CLUSTER[*]};do
