@@ -1,0 +1,8 @@
+[weixin]
+agentid = 7
+corpid = corpid
+secret = secret
+token = token
+
+[send]
+weixin_list = abc|def
