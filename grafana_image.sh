@@ -33,8 +33,8 @@ NOW=`date +%s`
 START=`echo $NOW|awk '{print $1-1800}'`
 NOW="${NOW}000"
 START="${START}000"
-WIDTH="1500"
-HEIGHT="1000"
+WIDTH="1366"
+HEIGHT="768"
 COMMON="?refresh=30s&orgId=1&panelId=5&from=$START&to=$NOW$varCluster$varHost&var-app=All&width=$WIDTH&height=$HEIGHT&tz=UTC%2B08%3A00"
 
 ERR_5xx="$GRAFANA/render/dashboard-solo/db/5xxgai-kuang$COMMON"
@@ -42,5 +42,6 @@ ERR_499="$GRAFANA/render/dashboard-solo/db/499bi-li$COMMON"
 
 curl -s -H "Authorization: Bearer $KEY" $ERR_5xx -o 5xx.png
 curl -s -H "Authorization: Bearer $KEY" $ERR_499 -o 499.png
-./libs/weixin.py 5xx.png image
-./libs/weixin.py 499.png image
+
+convert 5xx.png 499.png -append grafana.png
+./libs/weixin.py grafana.png image

@@ -46,7 +46,10 @@ def get_media(media, token=token):
 	files = {'image':open(media, 'rb')}
 	r = requests.post(upload_api, files=files)
 	re = json.loads(r.text)
-	return re['media_id']
+	try:
+		return re['media_id']
+	except:
+		return False
 
 def try_send(to, msgtype, msg, agentid=1, token=token):
 	sendmsg_api = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + token
@@ -56,7 +59,10 @@ def try_send(to, msgtype, msg, agentid=1, token=token):
 	data["agentid"] = agentid
 	
 	if msgtype == "image":
-		data["image"] = {"media_id":get_media(msg)}
+		media_id = get_media(msg)
+		if not media_id:
+			media_id = get_media(msg, getToken())
+		data["image"] = {"media_id":media_id}
 	else:
 		data["text"] = {"content":msg}
 
