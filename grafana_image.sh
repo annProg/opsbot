@@ -26,7 +26,7 @@ for id in ${CLUSTER[*]};do
 done
 
 for id in ${HOST[*]};do
-	varHost=$varHost"&var-host=$id"
+	varHost=$varHost"&var-router=$id"
 done
 
 NOW=`date +%s`
