@@ -39,9 +39,17 @@ COMMON="?refresh=30s&orgId=1&panelId=5&from=$START&to=$NOW$varCluster$varHost&va
 
 ERR_5xx="$GRAFANA/render/dashboard-solo/db/5xxgai-kuang$COMMON"
 ERR_499="$GRAFANA/render/dashboard-solo/db/499bi-li$COMMON"
+ZBX_TRIGGER="$GRAFANA/render/dashboard-solo/db/zabbixhong-fa-qi?orgId=1&from=$START&to=$NOW&panelId=1&width=$WIDTH&height=$HEIGHT&tz=UTC%2B08%3A00"
 
 curl -s -H "Authorization: Bearer $KEY" $ERR_5xx -o 5xx.png
 curl -s -H "Authorization: Bearer $KEY" $ERR_499 -o 499.png
+curl -s -H "Authorization: Bearer $KEY" $ZBX_TRIGGER -o zbx_trigger.png
 
 convert 5xx.png 499.png -append grafana.png
-./libs/weixin.py grafana.png image
+
+if [ $# -eq 1 ]  && [ "$1"x = "zbx"x ];then
+	./libs/weixin.py zbx_trigger.png image
+else
+	./libs/weixin.py grafana.png image
+fi
+
